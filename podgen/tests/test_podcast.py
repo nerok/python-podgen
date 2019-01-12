@@ -174,6 +174,7 @@ class TestPodcast(unittest.TestCase):
         # Keep track of our temporary file and its filename
         filename = None
         file = None
+        encoding = 'UTF-8'
         try:
             # Get our temporary file name
             file = tempfile.NamedTemporaryFile(delete=False)
@@ -181,9 +182,9 @@ class TestPodcast(unittest.TestCase):
             # Close the file; we will just use its name
             file.close()
             # Write the RSS to the file (overwriting it)
-            fg.rss_file(filename=filename, **kwargs)
+            fg.rss_file(filename=filename, encoding=encoding, **kwargs)
             # Read the resulting RSS
-            with open(filename, "r") as myfile:
+            with open(filename, "r", encoding=encoding) as myfile:
                 rssString = myfile.read()
         finally:
             # We don't need the file any longer, so delete it

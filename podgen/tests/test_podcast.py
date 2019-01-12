@@ -11,6 +11,7 @@
 
 import unittest
 import warnings
+import locale
 
 from lxml import etree
 import tempfile
@@ -26,6 +27,8 @@ import dateutil.parser
 class TestPodcast(unittest.TestCase):
 
     def setUp(self):
+        self.existing_locale = locale.setlocale(locale.LC_ALL, None)
+        locale.setlocale(locale.LC_ALL, 'C')
 
         fg = Podcast()
 
@@ -36,7 +39,8 @@ class TestPodcast(unittest.TestCase):
 
         self.name = 'Some Testfeed'
 
-        self.author = Person('John Doe', 'john@example.de')
+        # Use character not in ASCII to catch encoding errors
+        self.author = Person('Jon Døll', 'jon@example.com')
 
         self.website = 'http://example.com'
         self.description = 'This is a cool feed!'
@@ -98,6 +102,9 @@ class TestPodcast(unittest.TestCase):
         def noop(*args, **kwargs):
             pass
         warnings.showwarning = noop
+
+    def tearDown(self):
+        locale.setlocale(locale.LC_ALL, self.existing_locale)
 
     def test_constructor(self):
         # Overwrite fg from setup

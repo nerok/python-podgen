@@ -12,6 +12,7 @@ python:
   - "3.6"
 
 install:
+  - pip install --upgrade pip
   # lxml dropped support for Python 3.3 in version 4.3.0
   # Must work around bug in tinytag https://github.com/devsnd/tinytag/issues/71
   - if [[ $TRAVIS_PYTHON_VERSION == 3.3 ]]; then pip install --no-binary tinytag 'lxml<4.3.0' tinytag; fi

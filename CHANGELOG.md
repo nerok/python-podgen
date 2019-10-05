@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - This `CHANGELOG.md` file, for documenting notable changes.
 
+### Changed
+
+- Organization of the documentation, along with other documentation
+  improvements and updates.
+
 ### Removed
 
 - Support for Python 3.3, due to its age and lack of support, and bugs with

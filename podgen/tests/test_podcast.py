@@ -9,6 +9,11 @@
     :license: FreeBSD and LGPL, see license.* for more details.
 """
 
+# Support for Python 2.7
+from __future__ import absolute_import, division, print_function, unicode_literals
+from builtins import *
+from future.utils import raise_from
+
 import unittest
 import warnings
 import locale
@@ -16,7 +21,6 @@ import locale
 from lxml import etree
 import tempfile
 import os
-from future.utils import raise_from
 
 from podgen import NotSupportedByItunesWarning, Person, Category, Podcast
 import podgen.version

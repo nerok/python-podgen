@@ -9,7 +9,11 @@
     :license: FreeBSD and LGPL, see license.* for more details.
 
 """
+# Support for Python 2.7
+from __future__ import absolute_import, division, print_function, unicode_literals
+from builtins import *
 from future.utils import iteritems
+
 from lxml import etree
 from datetime import datetime
 import dateutil.parser

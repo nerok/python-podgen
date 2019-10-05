@@ -9,7 +9,11 @@
     :license: FreeBSD and LGPL, see license.* for more details.
 
 """
+# Support for Python 2.7
+from __future__ import absolute_import, division, print_function, unicode_literals
+from builtins import *
 from future.utils import iteritems
+
 from lxml import etree
 from datetime import datetime
 import dateutil.parser
@@ -668,7 +672,8 @@ class Podcast(object):
 
            File-like objects given to this method will not be closed.
 
-        :param filename: Name of file to write, or a file-like object, or a URL.
+        :param filename: Name of file to write, or a file-like object (accepting
+            string/unicode, not bytes).
         :type filename: str or fd
         :param minimize: Set to True to disable splitting the feed into multiple
             lines and adding properly indentation, saving bytes at the cost of
@@ -686,7 +691,7 @@ class Podcast(object):
         # Have we got a filename, or a file-like object?
         if isinstance(filename, string_types):
             # It is a string, assume it is filename
-            with open(filename, "w") as fd:
+            with open(filename, "w", encoding=encoding) as fd:
                 fd.write(rss)
         elif hasattr(filename, "write"):
             # It is file-like enough to fool us

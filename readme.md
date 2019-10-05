@@ -3,7 +3,6 @@ PodGen (forked from python-feedgen)
 
 [![Build Status](https://travis-ci.org/tobinus/python-podgen.svg?branch=master)](https://travis-ci.org/tobinus/python-podgen)
 [![Documentation Status](https://readthedocs.org/projects/podgen/badge/?version=latest)](http://podgen.readthedocs.io/en/latest/?badge=latest)
-[![Stories in Ready](https://badge.waffle.io/tobinus/python-podgen.svg?label=ready&title=Ready)](http://waffle.io/tobinus/python-podgen)
 
 
 This module can be used to generate podcast feeds in RSS format, and is
@@ -23,9 +22,13 @@ More details about the project:
 See the documentation link above for installation instructions and
 guides on how to use this module.
 
-Known bugs
-----------
+Known bugs and limitations
+--------------------------
 
+* The updates to Apple's podcasting guidelines since 2016 have not been
+  implemented. This includes the new categories, the ability to mark episodes
+  with episode and season number, and the ability to mark the podcast as
+  "serial". It is a goal to implement those changes in a future release.
 * We do not follow the RSS recommendation to encode &amp;, &lt; and &gt; using
   hexadecimal character reference (eg. `&#x3C;`), simply because lxml provides
   no documentation on how to do that when using the text property.

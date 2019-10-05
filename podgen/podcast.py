@@ -310,15 +310,7 @@ class Podcast(object):
             ``xml-stylesheet``, with type set to ``text/xsl`` and href set to
             this attribute.
 
-        .. note::
-
-           Firefox will use its own stylesheet for RSS feeds, so you
-           must test using another browser and possibly a `simple web server`_
-           (``python -m http.server 8000 -b 127.0.0.1``).
-
         .. _XSLT: https://en.wikipedia.org/wiki/XSLT
-        .. _simple web server:
-           https://docs.python.org/3/library/http.server.html
         """
 
         # Populate the podcast with the keyword arguments

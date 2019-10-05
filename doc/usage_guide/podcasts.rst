@@ -1,5 +1,5 @@
-Creating the podcast
---------------------
+Podcasts
+--------
 
 Creating a new instance
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -156,7 +156,3 @@ Using this technique, you can define the Podcast as part of a list
 comprehension, dictionaries and so on.
 Take a look at the :doc:`API Documentation for Podcast </api.podcast>` for a
 practical example.
-
---------------------------------------------------------------------------------
-
-Next step is :doc:`part_2`.

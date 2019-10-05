@@ -35,9 +35,9 @@ The unit tests reside in ``podgen/tests`` and are written using the
 Values
 ------
 
-Read :doc:`/user/introduction` and :doc:`/user/fork` for a run-down on what
-values/principles lay the foundation for this project. In short, it is important
-to keep the API as simple as possible.
+Read :doc:`/background/philosophy`, :doc:`/background/scope` and :doc:`/background/fork`
+for a run-down on what values/principles lay the foundation for this project.
+In short, it is important to keep the API as simple as possible.
 
 You must also write unittests as you code, ideally using **test-driven
 development** (that is, write a test, observe that the test fails, write code

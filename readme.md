@@ -7,7 +7,7 @@ PodGen (forked from python-feedgen)
 
 
 This module can be used to generate podcast feeds in RSS format, and is
-compatible with Python 2.7 and 3.3+.
+compatible with Python 2.7 and 3.4+.
 
 It is licensed under the terms of both, the FreeBSD license and the LGPLv3+.
 Choose the one which is more convenient for you. For more details have a look

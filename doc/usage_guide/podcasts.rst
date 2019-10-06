@@ -1,10 +1,15 @@
 Podcasts
 --------
 
+In PodGen, the term *podcast* refers to the show which listeners can subscribe to,
+which consists of individual *episodes*. Therefore, the Podcast class will be the
+first thing you start with.
+
 Creating a new instance
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-::
+You can start with a blank podcast by invoking the Podcast constructor with no
+arguments, like this::
 
     from podgen import Podcast
     p = Podcast()
@@ -12,14 +17,19 @@ Creating a new instance
 Mandatory attributes
 ~~~~~~~~~~~~~~~~~~~~
 
-::
+There are four attributes which must be set before you can generate your podcast.
+They are mandatory because Apple's podcast directory will not accept podcasts without
+this information. If you try to generate the podcast without setting all of the
+mandatory attributes, you will get an error.
+
+The mandatory attributes are::
 
     p.name = "My Example Podcast"
     p.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     p.website = "https://example.org"
-    p.explicit = True
+    p.explicit = False
 
-They're self explanatory, but you can read more about them if you'd like:
+They're mostly self explanatory, but you can read more about them if you'd like:
 
 * :attr:`~podgen.Podcast.name`
 * :attr:`~podgen.Podcast.description`

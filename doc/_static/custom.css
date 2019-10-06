@@ -1,14 +1,39 @@
-body, div.body {
+body {
     background-color: #fffded;
+}
+div.documentwrapper, div.body {
+    background: initial;
 }
 pre {
     background-color: #ebebeb;
 }
-div.sphinxsidebar a.current {
+div.sphinxsidebar a.current, div.sphinxsidebar a:visited.current {
+    color: rgba(0, 0, 0, 0.9);
     text-decoration: none;
     border-bottom: none;
     font-weight: bold;
     cursor: text;
+}
+div.body {
+    min-width: auto;
+}
+div.document, div.footer {
+    width: auto;
+    max-width: 1000px;
+}
+a:link,
+div.sphinxsidebar a:link {
+    color: #004B6B;
+}
+a:visited, div.sphinxsidebar a:visited {
+    color: #56006B;
+}
+a.current + ul a[href*="#"] {
+    color: rgba(0, 0, 0, 0.9);
+}
+div.toctree-wrapper a[href*="#"]
+{
+    color: rgba(0, 28, 40, 0.65);
 }
 /* Don't hide logo when viewed on mobile, just invert its colors */
 @media screen and (max-width: 875px) {

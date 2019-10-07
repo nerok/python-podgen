@@ -117,9 +117,14 @@ html_theme_options = {
 
     'github_user': 'tobinus',
     'github_repo': 'python-podgen',
-    'github_banner': True,
     'logo_name': False,
     'logo': 'logo.png',
+
+    'extra_nav_links': {
+        'Changelog': 'https://github.com/tobinus/python-podgen/blob/master/CHANGELOG.md',
+        'GitHub': 'https://github.com/tobinus/python-podgen/tree/master',
+        'PyPI': 'https://pypi.org/project/podgen/',
+    },
 }
 
 # Add any paths that contain custom themes here, relative to this directory.

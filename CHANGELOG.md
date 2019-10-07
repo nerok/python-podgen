@@ -18,8 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- Support for Python 3.3, due to its age and lack of support, and bugs with
-  installing `tinytag`.
+- Support for Python 3.3, due to its age and lack of support.
 
 ### Fixed
 

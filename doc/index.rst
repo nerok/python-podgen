@@ -18,23 +18,28 @@ Don't you wish there was a **clean and simple library** which could help you
           name="Animals Alphabetically",
           description="Every Tuesday, biologist John Doe and wildlife "
                       "photographer Foo Bar introduce you to a new animal.",
-          website="http://example.org/animals-alphabetically"
+          website="http://example.org/animals-alphabetically",
+          explicit=False,
        )
    >>> # Add some episodes
    >>> p.episodes += [
-          Episode(title="Aardvark",
-                  media=Media("http://example.org/files/aardvark.mp3", 11932295),
-                  summary="With an English name adapted directly from Afrikaans "
-                          "-- literally meaning "earth pig" -- this fascinating "
-                          "animal has both circular teeth and a knack for "
-                          "digging."),
-          Episode(title="Alpaca",
-                  media=Media("http://example.org/files/alpaca", 15363464),
-                  summary="Thousands of years ago, alpacas were already "
-                          "domesticated and bred to produce the best fibers. "
-                          "Case in point: we have found clothing made from "
-                          "alpaca fiber that is 2000 years old. How is this "
-                          "possible, and what makes it different from llamas?"
+          Episode(
+            title="Aardvark",
+            media=Media("http://example.org/files/aardvark.mp3", 11932295),
+            summary="With an English name adapted directly from Afrikaans "
+                    '-- literally meaning "earth pig" -- this fascinating '
+                    "animal has both circular teeth and a knack for "
+                    "digging.",
+          ),
+          Episode(
+             title="Alpaca",
+             media=Media("http://example.org/files/alpaca.mp3", 15363464),
+             summary="Thousands of years ago, alpacas were already "
+                     "domesticated and bred to produce the best fibers. "
+                     "Case in point: we have found clothing made from "
+                     "alpaca fiber that is 2000 years old. How is this "
+                     "possible, and what makes it different from llamas?",
+          ),
        ]
    >>> # Generate the RSS feed
    >>> rss = p.rss_str()
@@ -46,9 +51,17 @@ publishing the podcast.
 
 PodGen is compatible with Python 2.7 and 3.4+.
 
+.. warning::
 
-User Guide
-----------
+   As of October 7th 2019 (v1.0.1), PodGen does not support the additions and changes
+   made by Apple to their podcast standards since 2016. This includes
+   the new and renamed categories, the ability to mark episodes with episode and
+   season number, and the ability to mark the podcast as "serial".
+   It is a goal to implement those changes in a new release in 2019.
+
+
+Contents
+--------
 
 .. toctree::
    :maxdepth: 3
@@ -58,3 +71,11 @@ User Guide
    advanced/index
    contributing
    api
+
+
+External Resources
+------------------
+
+* `Changelog <https://github.com/tobinus/python-podgen/blob/master/CHANGELOG.md>`_
+* `GitHub Repository <https://github.com/tobinus/python-podgen/tree/master>`_
+* `Python Package Index <https://pypi.org/project/podgen/>`_

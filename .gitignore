@@ -6,6 +6,9 @@ venv
 # JetBrains IDE
 .idea/
 
+# Visual Studio Code
+.vscode/
+
 # Documentation build
 /doc/_build
 /docs
@@ -15,4 +18,3 @@ venv
 /MANIFEST
 /build
 /podgen.egg-info
-

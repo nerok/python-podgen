@@ -45,7 +45,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'PodGen'
-copyright = u'2014, Lars Kiesow. Modified work © 2016, Thorben Dahl'
+copyright = u'2014, Lars Kiesow. Modified work © 2019, Thorben Dahl'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -112,11 +112,19 @@ html_theme_options = {
     'gray_2': "rgba(0, 0, 0, 0.2)",
     'gray_3': "rgba(198, 198, 198, 0.9)",
 
+    'description': 'Generate podcasts with ease.',
+    'show_relbars': True,
+
     'github_user': 'tobinus',
     'github_repo': 'python-podgen',
-    'github_banner': True,
     'logo_name': False,
     'logo': 'logo.png',
+
+    'extra_nav_links': {
+        'Changelog': 'https://github.com/tobinus/python-podgen/blob/master/CHANGELOG.md',
+        'GitHub': 'https://github.com/tobinus/python-podgen/tree/master',
+        'PyPI': 'https://pypi.org/project/podgen/',
+    },
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
@@ -278,7 +286,7 @@ texinfo_documents = [
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'python': ('https://docs.python.org/3', None),
-                       'requests': ('http://docs.python-requests.org/en/master', None)}
+                       'requests': ('https://requests.readthedocs.io/en/master', None)}
 
 
 # Ugly way of setting tabsize

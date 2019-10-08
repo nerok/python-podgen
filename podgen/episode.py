@@ -64,7 +64,7 @@ class Episode(object):
 
     .. seealso::
 
-       :doc:`/user/basic_usage_guide/part_2`
+       :doc:`/usage_guide/episodes`
           A friendlier introduction to episodes.
     """
 

@@ -34,4 +34,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The Podcast and Episode classes for easily generating a podcast out of data,
   and related utilities and classes.
 
+[Unreleased]: https://github.com/tobinus/python-podgen/compare/v1.0.0...develop
 [1.0.0]: https://github.com/tobinus/python-podgen/compare/290045ac...v1.0.0

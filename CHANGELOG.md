@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - This `CHANGELOG.md` file, for documenting notable changes.
+- Documentation page about PodGen's roadmap (under Background).
 
 ### Changed
 

@@ -43,4 +43,19 @@ div.toctree-wrapper a[href*="#"]
         width: 60%;
         margin: auto;
     }
+
+    /* Different link colors */
+    div.sphinxsidebar a:link {
+        color: #BFD2DA;
+    }
+
+    div.sphinxsidebar a:visited {
+        color:  #C09FC7;
+    }
+
+    a.current + ul a[href*="#"],
+    div.sphinxsidebar a:link.current,
+    div.sphinxsidebar a:visited.current {
+        color: rgba(255, 255, 255, 0.95);
+    }
 }

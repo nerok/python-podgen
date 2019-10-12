@@ -14,7 +14,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 from builtins import *
 
 'Version of python-podgen represented as tuple'
-version = (1, 0, '1b1')
+version = (1, 0, 1)
 
 
 'Version of python-podgen represented as string'

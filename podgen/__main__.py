@@ -55,7 +55,7 @@ def main():
     p.description = 'This is a cool feed!'
     p.language = 'de'
     p.feed_url = 'http://example.com/feeds/myfeed.rss'
-    p.category = Category('Technology', 'Podcasting')
+    p.category = Category('Leisure', 'Aviation')
     p.explicit = False
     p.complete = False
     p.new_feed_url = 'http://example.com/new-feed.rss'

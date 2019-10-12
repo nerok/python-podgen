@@ -8,6 +8,11 @@
 
     :license: FreeBSD and LGPL, see license.* for more details.
 """
+# Support for Python 2.7
+from __future__ import absolute_import, division, print_function, unicode_literals
+from builtins import *
+from future.utils import iteritems
+
 import warnings
 
 from lxml import etree
@@ -18,8 +23,6 @@ import dateutil.tz
 from podgen.not_supported_by_itunes_warning import NotSupportedByItunesWarning
 from podgen.util import formatRFC2822, listToHumanreadableStr
 from podgen.compat import string_types
-from builtins import str
-from future.utils import iteritems
 
 
 class Episode(object):
@@ -61,7 +64,7 @@ class Episode(object):
 
     .. seealso::
 
-       :doc:`/user/basic_usage_guide/part_2`
+       :doc:`/usage_guide/episodes`
           A friendlier introduction to episodes.
     """
 
@@ -503,14 +506,14 @@ class Episode(object):
     def explicit(self):
         """Whether this podcast episode contains material which may be
         inappropriate for children.
-        
+
         The value of the podcast's explicit attribute is used by default, if
         this is kept as ``None``.
 
         If you set this to ``True``, an "explicit" parental advisory
-        graphic will appear in the Name column in iTunes. If the value is 
-        ``False``, the parental advisory type is considered Clean, meaning that 
-        no explicit language or adult content is included anywhere in this 
+        graphic will appear in the Name column in iTunes. If the value is
+        ``False``, the parental advisory type is considered Clean, meaning that
+        no explicit language or adult content is included anywhere in this
         episode, and a "clean" graphic will appear.
 
         :type: :obj:`bool`

@@ -9,9 +9,12 @@
     :license: FreeBSD and LGPL, see license.* for more details.
 
 """
+# Support for Python 2.7
+from __future__ import absolute_import, division, print_function, unicode_literals
+from builtins import *
 
 'Version of python-podgen represented as tuple'
-version = (1, 0, 0)
+version = (1, 0, 1)
 
 
 'Version of python-podgen represented as string'

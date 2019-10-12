@@ -1,6 +1,6 @@
 
-Generating the RSS
-------------------
+RSS
+---
 
 Once you've added all the information and episodes, you're ready to
 take the final step::

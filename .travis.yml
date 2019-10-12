@@ -1,16 +1,18 @@
 language: python
 
 sudo: required
-dist: trusty
+dist: xenial
 
 python:
-#  - "2.6"
   - "2.7"
-  - "3.3"
   - "3.4"
   - "3.5"
   - "3.6"
+  - "3.7"
 
-before_install: pip install --quiet -r requirements.txt
+install:
+  # lxml dropped support for Python 3.4 in version 4.4.0
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.4 ]]; then pip install 'lxml<4.4.0'; fi
+  - pip install -r requirements.txt
 
 script: make test

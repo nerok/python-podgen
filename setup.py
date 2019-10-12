@@ -7,7 +7,7 @@ setup(
         name = 'podgen',
         packages = ['podgen'],
         # Remember to update the version in podgen.version, too!
-        version = '1.0.0',
+        version = '1.0.1',
         description = 'Generating podcasts with Python should be easy!',
         author = 'Thorben W. S. Dahl',
         author_email = 'thorben@sjostrom.no',
@@ -16,6 +16,7 @@ setup(
         license = 'FreeBSD and LGPLv3+',
         install_requires = ['lxml', 'dateutils', 'future', 'pytz', 'tinytag',
                             'requests'],
+        python_requires = '>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',
         classifiers = [
             'Development Status :: 5 - Production/Stable',
             'Intended Audience :: Developers',
@@ -29,10 +30,10 @@ setup(
             'Programming Language :: Python :: 2',
             'Programming Language :: Python :: 2.7',
             'Programming Language :: Python :: 3',
-            'Programming Language :: Python :: 3.3',
             'Programming Language :: Python :: 3.4',
             'Programming Language :: Python :: 3.5',
             'Programming Language :: Python :: 3.6',
+            'Programming Language :: Python :: 3.7',
             'Topic :: Communications',
             'Topic :: Internet',
             'Topic :: Software Development :: Libraries :: Python Modules',

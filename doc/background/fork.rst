@@ -10,7 +10,7 @@ request which removes 70% of the features ;-) Among other things, support for AT
 Dublin Core is removed, and the remaining code is almost entirely rewritten.
 
 A more detailed reasoning follows. Read it if you're interested, but feel free
-to skip to :doc:`basic_usage_guide/part_1`.
+to skip to the :doc:`/usage_guide/index`.
 
 Inspiration
 -----------
@@ -46,11 +46,9 @@ and you as a user shouldn't need to know all this. You just need to know that th
 image must be larger than 1400x1400 pixels, not the history behind everything.
 
 Forking a project gives you a lot of freedom, since you don't have to support
-any old behaviour. python-feedgen_ cannot make backwards incompatible changes,
-since many projects around the earth rely on the way the library works, and you
-cannot expect everyone to use ``pip freeze`` (you should, though!). Whenever a
-change *is* appropriate for python-feedgen_, however, we should strive to bring
-it there so it can benefit as many as possible :)
+any old behaviour. It would be difficult to make these changes upstream, since
+many of the problems are inherent to the scope and purpose of the library itself,
+and changing that is difficult and not always desirable.
 
 
 Summary of changes
@@ -93,7 +91,7 @@ The following list is not exhaustive.
 * :attr:`.Podcast.explicit` is now required, and is :obj:`bool`.
 * Add shorthand for generating the RSS: Just try to converting your :class:`~podgen.Podcast`
   object to :obj:`str`!
-* Expand the documentation (as you've surely noticed).
+* Expand the documentation.
 * Move away from the extension framework, and rely on class inheritance instead.
 
 .. _python-feedgen: https://github.com/lkiesow/python-feedgen

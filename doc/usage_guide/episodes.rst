@@ -1,11 +1,11 @@
 
-Adding episodes
----------------
+Episodes
+--------
 
-To add episodes to a feed, you need to create new
-:class:`podgen.Episode` objects and
-append them to the list of episodes in the Podcast. That is pretty
-straight-forward::
+Once you have created and populated a Podcast, you probably want to add some
+episodes to it.
+To add episodes to a feed, you need to create new :class:`podgen.Episode` objects and
+append them to the list of episodes in the Podcast. That is pretty straight-forward::
 
     from podgen import Podcast, Episode
     # Create the podcast (see the previous section)
@@ -297,7 +297,3 @@ attribute name as the keyword::
     )
 
 See also the example in :doc:`the API Documentation </api.episode>`.
-
---------------------------------------------------------------------------------
-
-The final step is :doc:`part_3`.

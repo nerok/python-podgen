@@ -9,11 +9,15 @@
     :copyright: 2016, Thorben Dahl <thorben@sjostrom.no>
     :license: FreeBSD and LGPL, see license.* for more details.
 """
+# Support for Python 2.7
+from __future__ import absolute_import, division, print_function, unicode_literals
+from builtins import *
+from future.moves.urllib.parse import urlparse
+from future.utils import raise_from
+
 import os
 import tempfile
 import warnings
-from future.moves.urllib.parse import urlparse
-from future.utils import raise_from
 import datetime
 
 from tinytag import TinyTag

@@ -9,6 +9,7 @@ API Documentation
    podgen.Person
    podgen.Media
    podgen.Category
+   podgen.warnings
    podgen.util
 
 .. toctree::
@@ -20,4 +21,5 @@ API Documentation
    api.person
    api.media
    api.category
+   api.warnings
    api.util

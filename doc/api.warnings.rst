@@ -1,0 +1,2 @@
+.. automodule:: podgen.warnings
+   :members:

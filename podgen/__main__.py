@@ -65,6 +65,7 @@ def main():
     e1 = p.add_episode()
     e1.id = 'http://lernfunk.de/_MEDIAID_123#1'
     e1.title = 'First Element'
+    e1.season = 1
     e1.summary = htmlencode('''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tamen
             aberramus a proposito, et, ne longius, prorsus, inquam, Piso, si ista
             mala sunt, placet. Aut etiam, ut vestitum, sic sententiam habeas aliam

@@ -513,6 +513,49 @@ class TestBaseEpisode(unittest.TestCase):
         assert get_element() is not None
         self.assertEqual(get_element().text.lower(), "yes")
 
+    def test_season(self):
+        def get_element():
+            return self.fe.rss_entry()\
+                .find("{%s}season" % self.itunes_ns)
+        
+        # Starts out as None
+        assert self.fe.season is None
+
+        # Not used when set to None
+        assert get_element() is None
+
+        # Can be set
+        self.fe.season = 3
+        self.assertEqual(self.fe.season, 3)
+
+        # Is used when set
+        assert get_element() is not None
+        self.assertEqual(get_element().text, "3")
+
+        # Can be set to something that can be converted to int
+        self.fe.season = "5"
+        self.assertEqual(self.fe.season, 5)
+        assert get_element() is not None
+        self.assertEqual(get_element().text, "5")
+
+        # Can be reset to None
+        self.fe.season = None
+        assert self.fe.season is None
+        assert get_element() is None
+
+        # Gives error when set to something that cannot be converted to int
+        with self.assertRaises(ValueError):
+            self.fe.season = "Best Season"
+
+        # Gives error when set to zero
+        with self.assertRaises(ValueError):
+            self.fe.season = 0
+        
+        # Gives error when set to negative number
+        with self.assertRaises(ValueError):
+            self.fe.season = -1
+
+    
     def test_episodeType(self):
         def get_element():
             return self.fe.rss_entry()\
@@ -526,13 +569,26 @@ class TestBaseEpisode(unittest.TestCase):
 
         # Used when set to "trailer"
         self.fe.episode_type = EPISODE_TYPE_TRAILER
+        self.assertEqual(self.fe.episode_type, EPISODE_TYPE_TRAILER)
         assert get_element() is not None
         self.assertEqual(get_element().text.lower(), "trailer")
 
         # Used when set to "bonus"
         self.fe.episode_type = EPISODE_TYPE_BONUS
+        self.assertEqual(self.fe.episode_type, EPISODE_TYPE_BONUS)
         assert get_element() is not None
         self.assertEqual(get_element().text.lower(), "bonus")
+
+        # Can be set to something that evaluates to "trailer" or "bonus" when
+        # converted to str()
+        class IsEpisodeTypeWhenStr:
+            def __str__(self):
+                return EPISODE_TYPE_TRAILER
+        
+        self.fe.episode_type = IsEpisodeTypeWhenStr()
+        self.assertEqual(self.fe.episode_type, EPISODE_TYPE_TRAILER)
+        assert get_element() is not None
+        self.assertEqual(get_element().text.lower(), "trailer")
 
         # Fails when set to anything else
         with self.assertRaises(ValueError):

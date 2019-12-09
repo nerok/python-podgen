@@ -30,9 +30,18 @@ class TestCategory(unittest.TestCase):
                 v.__warningregistry__ = {}
 
     def test_constructorWithSubcategory(self):
-        c = Category("Arts", "Food")
-        self.assertEqual(c.category, "Arts")
-        self.assertEqual(c.subcategory, "Food")
+        # Replacement of assertWarns in Python 2.7
+        with warnings.catch_warnings(record=True) as w:
+            # Replacement of assertWarns in Python 2.7
+            warnings.simplefilter("always", LegacyCategoryWarning)
+
+            c = Category("Arts", "Food")
+            self.assertEqual(c.category, "Arts")
+            self.assertEqual(c.subcategory, "Food")
+
+            # No warning should be given
+            # Replacement of assertWarns in Python 2.7
+            self.assertEqual(len(w), 0);
 
     def test_constructorWithoutSubcategory(self):
         c = Category("Arts")

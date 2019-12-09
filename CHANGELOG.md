@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Support for the [new Apple Podcast categories][category-new-2019] that were [added August 9th 2019][category-published-2019].
+- Support for `Episode.episode_type` for indicating whether an episode 
+  constains a full episode, a trailer or bonus material.
+- Support for `Episode.season` for indicating what season the episode belongs 
+  to.
 - Documentation of the Warning classes defined by PodGen.
 
 [category-new-2019]: https://podnews.net/article/apple-changed-podcast-categories-2019

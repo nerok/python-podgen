@@ -175,6 +175,8 @@ class Episode(object):
 
         self.__position = None
 
+        self.__season = None
+
         self.__episode_type = EPISODE_TYPE_FULL
 
         self.subtitle = None
@@ -309,6 +311,13 @@ class Episode(object):
                 '{%s}episodeType' % ITUNES_NS
             )
             episode_type.text = self.__episode_type
+
+        if self.__season is not None:
+            season = etree.SubElement(
+                entry,
+                '{%s}season' % ITUNES_NS
+            )
+            season.text = str(self.__season)
 
         if self.__position is not None and self.__position >= 0:
             order = etree.SubElement(entry, '{%s}order' % ITUNES_NS)
@@ -568,6 +577,32 @@ class Episode(object):
             raise ValueError('Invalid episode_type value "%s"' % as_str)
 
         self.__episode_type = as_str
+
+    @property
+    def season(self):
+        """The number of the season this episode belongs to.
+
+        By default, the episode belongs to no season, indicated by this
+        attribute being set to :obj:`None`.
+
+        Some podcast applications may choose to show season numbers only when
+        there is more than one season.
+
+        :type: :obj:`None` or positive :obj:`int`
+        :RSS: itunes:season
+        """
+        return self.__season
+
+    @season.setter
+    def season(self, season):
+        if season is None:
+            self.__season = None
+        else:
+            as_int = int(season)
+            if as_int <= 0:
+                raise ValueError('Season number must be a positive, non-zero '
+                                'integer; not "%s"' % as_int)
+            self.__season = as_int
 
     @property
     def position(self):

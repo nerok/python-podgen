@@ -14,6 +14,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 from builtins import *
 
+from .constants import EPISODE_TYPE_BONUS, EPISODE_TYPE_FULL, EPISODE_TYPE_TRAILER
 from .podcast import Podcast
 from .episode import Episode
 from .media import Media

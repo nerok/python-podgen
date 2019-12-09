@@ -18,7 +18,8 @@ import warnings
 from lxml import etree
 
 from podgen import Person, Media, Podcast, htmlencode, Episode, \
-    NotSupportedByItunesWarning
+    NotSupportedByItunesWarning, EPISODE_TYPE_FULL, EPISODE_TYPE_BONUS, \
+    EPISODE_TYPE_TRAILER
 import datetime
 import pytz
 from dateutil.parser import parse as parsedate
@@ -511,6 +512,34 @@ class TestBaseEpisode(unittest.TestCase):
         self.assertEqual(self.fe.is_closed_captioned, True)
         assert get_element() is not None
         self.assertEqual(get_element().text.lower(), "yes")
+
+    def test_episodeType(self):
+        def get_element():
+            return self.fe.rss_entry()\
+                .find("{%s}episodeType" % self.itunes_ns)
+        
+        # Starts out as "full"
+        self.assertEqual(self.fe.episode_type, EPISODE_TYPE_FULL)
+        
+        # Not used when set to "full"
+        assert get_element() is None
+
+        # Used when set to "trailer"
+        self.fe.episode_type = EPISODE_TYPE_TRAILER
+        assert get_element() is not None
+        self.assertEqual(get_element().text.lower(), "trailer")
+
+        # Used when set to "bonus"
+        self.fe.episode_type = EPISODE_TYPE_BONUS
+        assert get_element() is not None
+        self.assertEqual(get_element().text.lower(), "bonus")
+
+        # Fails when set to anything else
+        with self.assertRaises(ValueError):
+            self.fe.episode_type = "banana"
+
+        with self.assertRaises(ValueError):
+            self.fe.episode_type = False
 
     def test_link(self):
         def get_element():

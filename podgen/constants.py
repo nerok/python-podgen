@@ -1,0 +1,3 @@
+EPISODE_TYPE_FULL = "full"
+EPISODE_TYPE_TRAILER = "trailer"
+EPISODE_TYPE_BONUS = "bonus"

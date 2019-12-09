@@ -22,6 +22,7 @@ import dateutil.tz
 
 from podgen.warnings import NotSupportedByItunesWarning
 from podgen.util import formatRFC2822, listToHumanreadableStr
+from podgen.constants import EPISODE_TYPE_FULL, EPISODE_TYPE_TRAILER, EPISODE_TYPE_BONUS
 from podgen.compat import string_types
 
 
@@ -174,6 +175,8 @@ class Episode(object):
 
         self.__position = None
 
+        self.__episode_type = EPISODE_TYPE_FULL
+
         self.subtitle = None
         """A short subtitle.
 
@@ -299,6 +302,13 @@ class Episode(object):
             is_closed_captioned = etree.SubElement(entry,
                                             '{%s}isClosedCaptioned' % ITUNES_NS)
             is_closed_captioned.text = 'Yes'
+
+        if self.__episode_type != EPISODE_TYPE_FULL:
+            episode_type = etree.SubElement(
+                entry,
+                '{%s}episodeType' % ITUNES_NS
+            )
+            episode_type.text = self.__episode_type
 
         if self.__position is not None and self.__position >= 0:
             order = etree.SubElement(entry, '{%s}order' % ITUNES_NS)
@@ -531,6 +541,33 @@ class Episode(object):
             self.__explicit = explicit
         else:
             self.__explicit = None
+
+    @property
+    def episode_type(self):
+        """Indicate whether this is a full episode, or a bonus or trailer for
+        an episode or a season.
+
+        By default, the episode is taken to be a full episode.
+
+        Use the constants ``EPISODE_TYPE_FULL``, ``EPISODE_TYPE_TRAILER`` or
+        ``EPISODE_TYPE_BONUS`` (available to import from ``podgen``).
+
+        :type: One of the three constants mentioned.
+        :RSS: itunes:episodeType
+        """
+        return self.__episode_type
+
+    @episode_type.setter
+    def episode_type(self, episode_type):
+        as_str = str(episode_type)
+        if (as_str not in (
+            EPISODE_TYPE_FULL,
+            EPISODE_TYPE_BONUS,
+            EPISODE_TYPE_TRAILER,
+        )):
+            raise ValueError('Invalid episode_type value "%s"' % as_str)
+
+        self.__episode_type = as_str
 
     @property
     def position(self):

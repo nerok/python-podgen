@@ -18,6 +18,7 @@ from .podcast import Podcast
 from .episode import Episode
 from .media import Media
 from .person import Person
-from .not_supported_by_itunes_warning import NotSupportedByItunesWarning
+from .warnings import NotSupportedByItunesWarning, PodgenWarning, \
+    LegacyCategoryWarning, NotRecommendedWarning
 from .category import Category
 from .util import htmlencode

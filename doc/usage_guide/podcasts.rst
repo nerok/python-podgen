@@ -64,7 +64,7 @@ Commonly used
     p.language = "en-US"
     p.authors = [Person("John Doe", "editor@example.org")]
     p.feed_url = "https://example.com/feeds/podcast.rss"  # URL of this feed
-    p.category = Category("Technology", "Podcasting")
+    p.category = Category("Music", "Music History")
     p.owner = p.authors[0]
     p.xslt = "https://example.com/feed/stylesheet.xsl"  # URL of XSLT stylesheet
 

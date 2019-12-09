@@ -23,7 +23,7 @@ import datetime
 from tinytag import TinyTag
 import requests
 
-from podgen.not_supported_by_itunes_warning import NotSupportedByItunesWarning
+from podgen.warnings import NotSupportedByItunesWarning
 from podgen import version
 
 
@@ -64,7 +64,7 @@ class Media(object):
 
     .. note::
 
-        A warning called :class:`~podgen.NotSupportedByItunesWarning`
+        A warning called :class:`~podgen.warnings.NotSupportedByItunesWarning`
         will be issued if your URL or type isn't compatible with iTunes. See
         the Python documentation for more details on :mod:`warnings`.
 

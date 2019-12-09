@@ -19,7 +19,7 @@ from datetime import datetime
 import dateutil.parser
 import dateutil.tz
 from podgen.episode import Episode
-from podgen.not_supported_by_itunes_warning import NotSupportedByItunesWarning
+from podgen.warnings import NotSupportedByItunesWarning
 from podgen.util import ensure_format, formatRFC2822, listToHumanreadableStr, \
     htmlencode
 from podgen.person import Person
@@ -1156,4 +1156,3 @@ class Podcast(object):
                                  "doesn't have a valid URL scheme "
                                  "(like for example http:// or https://)")
         self.__feed_url = feed_url
-

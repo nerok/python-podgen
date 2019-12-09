@@ -20,7 +20,7 @@ from datetime import datetime
 import dateutil.parser
 import dateutil.tz
 
-from podgen.not_supported_by_itunes_warning import NotSupportedByItunesWarning
+from podgen.warnings import NotSupportedByItunesWarning
 from podgen.util import formatRFC2822, listToHumanreadableStr
 from podgen.compat import string_types
 

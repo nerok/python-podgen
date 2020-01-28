@@ -53,6 +53,7 @@ def main():
     p.website = 'http://example.com'
     p.copyright = 'cc-by'
     p.description = 'This is a cool feed!'
+    p.is_serial = True
     p.language = 'de'
     p.feed_url = 'http://example.com/feeds/myfeed.rss'
     p.category = Category('Leisure', 'Aviation')

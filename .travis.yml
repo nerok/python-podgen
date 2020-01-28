@@ -13,8 +13,8 @@ python:
 install:
   # lxml dropped support for Python 3.4 in version 4.4.0
   - if [[ $TRAVIS_PYTHON_VERSION == 3.4 ]]; then pip install 'lxml<4.4.0'; fi
-  # use newest version of pip to avoid e.g. selection of wrong dependency versions
-  - pip install -U pip
+  # in CI, incompatible zipp version is chosen for some reason
+  - if [[ $TRAVIS_PYTHON_VERSION == 2.7 ]]; then pip install 'lxml<2,>=0.5'; fi
   # install application development dependencies
   - pip install -r requirements.txt
 

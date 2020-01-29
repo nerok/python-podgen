@@ -48,6 +48,38 @@ A podcast's image is worth special attention::
 
 Even though the image *technically* is optional, you won't reach people without it.
 
+
+The two types of podcasts
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There are two types of podcasts in the world (according to Apple Podcasts, anyway):
+
+* **Episodic** podcasts are podcasts whose episodes are meant to be consumed in any order.
+  New listeners will likely start with the newest episode.
+  This is the traditional type of podcast, with examples like "The Daily" and "The Joe Rogan Experience".
+  Each episode of an episodic podcast is largely self-contained, although there may be
+  recurring jokes and references to older episodes.
+
+* **Serial** podcasts are podcasts whose episodes must be consumed from beginning to end.
+  New listeners will likely start with the first episode of the current season.
+  This is a newer phenomenon, made popular by the appropriately titled podcast "Serial".
+  Each episode of a serial podcast starts off where the last episode ended, though the seasons
+  are independent from one another.
+
+If you don't do anything, PodGen will assume that your podcast is episodic.
+
+If your podcast is serial, you can set the :attr:`~podgen.Podcast.is_serial` attribute to :data:`True`, like this::
+
+   p.is_serial = True
+
+.. note::
+
+   When :attr:`~podgen.Podcast.is_serial` is set to :data:`True`,
+   all episodes must be given an episode number.
+   Additionally, it is recommended that you associate each episode with a season.
+   This is covered on the next page.
+
+
 Optional attributes
 ~~~~~~~~~~~~~~~~~~~
 

@@ -328,15 +328,15 @@ class Podcast(object):
         season. This is used for podcasts like "Serial", where the second
         episode continues where the first episode left off.
         
-        Set this to ``True`` to mark the podcast as serial.
-        Keep the default value, ``False``, to mark the podcast as
+        Set this to :data:`True` to mark the podcast as serial.
+        Keep the default value, :data:`False`, to mark the podcast as
         episodic.
 
         .. note::
 
            To preserve backwards compatibility, no RSS element will be
-           produced when this is set to ``False``. This will be interpreted as
-           "episodic" by podcast applications.
+           produced when this is set to :data:`False`. This will be interpreted
+           as "episodic" by podcast applications.
 
         :type: :obj:`bool`
         :RSS: itunes:type

@@ -18,6 +18,8 @@ from lxml import etree
 from datetime import datetime
 import dateutil.parser
 import dateutil.tz
+
+from podgen import EPISODE_TYPE_FULL
 from podgen.episode import Episode
 from podgen.warnings import NotSupportedByItunesWarning
 from podgen.util import ensure_format, formatRFC2822, listToHumanreadableStr, \
@@ -331,6 +333,9 @@ class Podcast(object):
         Set this to :data:`True` to mark the podcast as serial.
         Keep the default value, :data:`False`, to mark the podcast as
         episodic.
+        
+        When set to :data:`True`, the :attr:`Episode.episode_number` attribute
+        is mandatory.
 
         .. note::
 
@@ -619,6 +624,19 @@ class Podcast(object):
             link_to_hub.attrib['rel'] = 'hub'
 
         for entry in self.episodes:
+            # Do episode checks that depend on information from Podcast
+            episode_number_is_mandatory = (
+                    self.is_serial and
+                    entry.episode_type == EPISODE_TYPE_FULL
+            )
+            if episode_number_is_mandatory and entry.episode_number is None:
+                raise ValueError(
+                    'The episode_number attribute is mandatory for full '
+                    'episodes that belong to a serial podcast; is set to None '
+                    'for %r' % entry
+                )
+
+            # Generate and add the episode to the RSS
             item = entry.rss_entry()
             channel.append(item)
 

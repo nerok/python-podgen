@@ -191,6 +191,37 @@ That is, given the example above, the id of ``my_episode`` would be
 
 Read more about :attr:`the id attribute <podgen.Episode.id>`.
 
+Organization of episodes
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+By default, podcast applications will organize episodes by their publication
+date, with the most recent episode at top. In addition to this, many publishers
+number their episodes by including a number in the episode titles.
+Some also divide their episodes into seasons.
+Such titles may look like "S02E04 Example title", to take an example.
+
+Generally, podcast applications can provide a better presentation when the information is
+*structured*, rather than mangled together in the episode titles. Apple
+therefore introduced `new ways of specifying season and episode numbers`_ through
+separate fields in mid 2017. Unfortunately, `not all podcast applications have
+adopted the fields`_, but hopefully that will improve as more publishers use
+the new fields.
+
+The :attr:`~podgen.Episode.season` and :attr:`~podgen.Episode.episode_number`
+attributes are used to set this information::
+
+   my_episode.title = "Example title"
+   my_episode.season = 2
+   my_episode.episode_number = 4
+
+The ``episode_number`` attribute is mandatory for full episodes if the podcast
+is marked as serial. Otherwise, they are just nice to have.
+
+.. _new ways of specifying season and episode numbers: https://podnews.net/article/episode-numbers-faq
+.. _not all podcast applications have adopted the fields: https://podnews.net/article/episode-number-support-in-podcast-apps
+
+
+
 Episode's publication date
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -251,6 +282,59 @@ You can even have multiple authors::
      my_episode.authors = [Person("Joe Bob"), Person("Alice Bob")]
 
 Read more about :attr:`an episode's authors <podgen.Episode.authors>`.
+
+
+Bonuses and Trailers
+^^^^^^^^^^^^^^^^^^^^
+
+Sometimes, you may have some bonus material that did not make it into the
+published episode, such as a 1-hour interview which was cut down to 10 minutes
+for the podcast, or funny outtakes. Or, you may want to generate some hype for an upcoming season
+of a podcast ahead of its first episode.
+
+Bonuses and trailers are added to the podcast the same way regular episodes are
+added, but with the :attr:`~podgen.Episode.episode_type` attribute set to a
+different value depending on if it is a bonus or a trailer.
+
+The following constants are used as values of ``episode_type``:
+
+* Bonus: ``EPISODE_TYPE_BONUS``
+* Trailer: ``EPISODE_TYPE_TRAILER``
+* Full/regular (default): ``EPISODE_TYPE_FULL``
+
+The constants can be imported from ``podgen``. Here is an example::
+
+    from podgen import Podcast, EPISODE_TYPE_BONUS
+
+    # Create the podcast
+    my_podcast = Podcast()
+    # Fill in the podcast details
+    # ...
+
+    # Create the ordinary episode
+    my_episode = my_podcast.add_episode()
+    my_episode.title = "The history of Acme Industries"
+    my_episode.season = 1
+    my_episode.episode_number = 9
+
+    # Create the bonus episode associated with the ordinary episode above
+    my_bonus = my_podcast.add_episode()
+    my_bonus.title = "Full interview with John Doe about Acme Industries"
+    my_bonus.episode_type = EPISODE_TYPE_BONUS
+    my_bonus.season = 1
+    my_bonus.episode_number = 9
+    # ...
+
+:attr:`~podgen.Episode.episode_type` combines with :attr:`~podgen.Episode.season`
+and :attr:`~podgen.Episode.episode_number` to indicate what this is a bonus or trailer for.
+
+* If you specify an :attr:`episode number <podgen.Episode.episode_number>`,
+  optionally with a :attr:`season number <podgen.Episode.season>` if you divide episodes by season,
+  it will be a bonus or trailer for that episode.
+  You can see this in the example above.
+* If you specify only a :attr:`~podgen.Episode.season`, then it will be a bonus or trailer for that season.
+* If you specify none of those,
+  it will be a bonus or trailer for the podcast itself.
 
 
 Less used attributes

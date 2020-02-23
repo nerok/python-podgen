@@ -75,9 +75,10 @@ If your podcast is serial, you can set the :attr:`~podgen.Podcast.is_serial` att
 .. note::
 
    When :attr:`~podgen.Podcast.is_serial` is set to :data:`True`,
-   all episodes must be given an episode number.
-   Additionally, it is recommended that you associate each episode with a season.
-   This is covered on the next page.
+   all full episodes must be given an
+   :attr:`episode number <podgen.Episode.episode_number>`. Additionally, it is
+   recommended that you associate each episode with a season. This is covered on
+   the next page.
 
 
 Optional attributes

@@ -4,6 +4,18 @@
 # serve to show the default.
 
 import sys, os, time, codecs, re
+from sphinx.ext.autodoc import (
+    ClassLevelDocumenter,
+    InstanceAttributeDocumenter
+)
+
+# Monkey-patch bug causing all instance attributes to be shown with None as
+# default value.
+# See https://github.com/sphinx-doc/sphinx/issues/2044#issuecomment-285888160
+def iad_add_directive_header(self, sig):
+    ClassLevelDocumenter.add_directive_header(self, sig)
+
+InstanceAttributeDocumenter.add_directive_header = iad_add_directive_header
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -45,7 +57,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'PodGen'
-copyright = u'2014, Lars Kiesow. Modified work © 2019, Thorben Dahl'
+copyright = u'2014, Lars Kiesow. Modified work © 2020, Thorben Dahl'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

@@ -601,5 +601,39 @@ class TestPodcast(unittest.TestCase):
                 # Was the image set?
                 self.assertEqual(good_ext, self.fg.image)
 
+    def test_isSerialDefaultFalse(self):
+        self.assertTrue(
+            hasattr(self.fg, "is_serial"),
+            "No is_serial attribute found on Podcast"
+        )
+        self.assertFalse(
+            self.fg.is_serial,
+            "The is_serial attribute did not default to False"
+        )
+
+    def test_isSerialWhenFalse(self):
+        self.fg.is_serial = False
+        channel = self.fg._create_rss().find("channel")
+        podcast_type = channel.find("{%s}type" % self.nsItunes)
+        # When is_serial is False, we _could_ have set itunes:type to episodic.
+        # But rather than introduce a change to the generated RSS for those who
+        # upgrade, we will only include the new RSS tag if this field has been
+        # changed from its default. Episodic is the default either way.
+        assert podcast_type is None
+    
+    def test_isSerialWhenTrue(self):
+        self.fg.is_serial = True
+
+        # Test that the field is set
+        self.assertTrue(self.fg.is_serial, "is_serial did not update")
+
+        # Test that the tag is set
+        channel = self.fg._create_rss().find("channel")
+        podcast_type = channel.find("{%s}type" % self.nsItunes)
+        assert podcast_type is not None, "Could not find <itunes:type>"
+
+        # Test that its contents is correct
+        self.assertEqual(podcast_type.text, "serial")
+
 if __name__ == '__main__':
     unittest.main()

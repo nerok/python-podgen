@@ -313,6 +313,35 @@ class Podcast(object):
         .. _XSLT: https://en.wikipedia.org/wiki/XSLT
         """
 
+        self.is_serial = False
+        """
+        Flag indicating that the episodes should be consumed in order.
+
+        Apple Podcasts operates with two types of podcasts. The default type,
+        episodic, is typically used for talkshows and other podcasts where
+        the listener can start with the latest episode with no problem.
+        The episode publication dates may be used to group the episodes.
+
+        The other type is called "serial", and is used for podcasts where
+        the listener should start with the first episode – in the case of
+        seasons, they can start with the first episode of e.g. the latest
+        season. This is used for podcasts like "Serial", where the second
+        episode continues where the first episode left off.
+        
+        Set this to :data:`True` to mark the podcast as serial.
+        Keep the default value, :data:`False`, to mark the podcast as
+        episodic.
+
+        .. note::
+
+           To preserve backwards compatibility, no RSS element will be
+           produced when this is set to :data:`False`. This will be interpreted
+           as "episodic" by podcast applications.
+
+        :type: :obj:`bool`
+        :RSS: itunes:type
+        """
+
         # Populate the podcast with the keyword arguments
         for attribute, value in iteritems(kwargs):
             if hasattr(self, attribute):
@@ -450,6 +479,10 @@ class Podcast(object):
         desc.text = self.description
         explicit = etree.SubElement(channel, '{%s}explicit' % ITUNES_NS)
         explicit.text = "yes" if self.explicit else "no"
+
+        if self.is_serial:
+            is_serial = etree.SubElement(channel, "{%s}type" % ITUNES_NS)
+            is_serial.text = "serial"
 
         if self.__cloud:
             cloud = etree.SubElement(channel, 'cloud')

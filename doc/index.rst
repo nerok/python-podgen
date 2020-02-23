@@ -3,7 +3,8 @@ PodGen
 ======
 
 .. image:: https://travis-ci.org/tobinus/python-podgen.svg?branch=master
-    :target: https://travis-ci.org/tobinus/python-podgen
+   :target: https://travis-ci.com/tobinus/python-podgen.svg?branch=master
+   :alt: Continuous Integration (Travis CI)
 
 .. image:: https://readthedocs.org/projects/podgen/badge/?version=latest
    :target: http://podgen.readthedocs.io/en/latest/?badge=latest
@@ -58,7 +59,7 @@ PodGen is compatible with Python 2.7 and 3.4+.
    made by Apple to their podcast standards since 2016. This includes
    the new and renamed categories, the ability to mark episodes with episode and
    season number, and the ability to mark the podcast as "serial".
-   It is a goal to implement those changes in a new release in 2019.
+   It is a goal to eventually implement those changes in a new release.
    Please refer to the :doc:`background/roadmap`.
 
 

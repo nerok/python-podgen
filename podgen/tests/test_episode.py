@@ -51,11 +51,11 @@ class TestBaseEpisode(unittest.TestCase):
         #Use also the list directly
         fe = Episode()
         fg.episodes.append(fe)
-        fe.id = 'http://lernfunk.de/media/654321/1'
+        fe.id = 'http://lernfunk.de/media/654321/2'
         fe.title = 'The Second Episode'
 
         fe = fg.add_episode()
-        fe.id = 'http://lernfunk.de/media/654321/1'
+        fe.id = 'http://lernfunk.de/media/654321/3'
         fe.title = 'The Third Episode'
 
         self.fg = fg
@@ -86,6 +86,7 @@ class TestBaseEpisode(unittest.TestCase):
         is_closed_captioned = False
         position = 3
         withhold_from_itunes = True
+        episode_number = 4
 
         ep = Episode(
             title=title,
@@ -101,6 +102,7 @@ class TestBaseEpisode(unittest.TestCase):
             is_closed_captioned=is_closed_captioned,
             position=position,
             withhold_from_itunes=withhold_from_itunes,
+            episode_number=episode_number,
         )
 
         # Time to check if this works
@@ -117,18 +119,17 @@ class TestBaseEpisode(unittest.TestCase):
         self.assertEqual(ep.is_closed_captioned, is_closed_captioned)
         self.assertEqual(ep.position, position)
         self.assertEqual(ep.withhold_from_itunes, withhold_from_itunes)
+        self.assertEqual(ep.episode_number, episode_number)
 
     def test_constructorUnknownKeyword(self):
         self.assertRaises(TypeError, Episode, tittel="What is tittel")
         self.assertRaises(TypeError, Episode, "This is not a keyword")
 
     def test_checkItemNumbers(self):
-
         fg = self.fg
         assert len(fg.episodes) == 3
 
     def test_checkEntryContent(self):
-
         fg = self.fg
         assert len(fg.episodes) is not None
 
@@ -388,6 +389,50 @@ class TestBaseEpisode(unittest.TestCase):
         itunes_order = self.fe.rss_entry().find("{%s}order" % self.itunes_ns)
         assert itunes_order is None
 
+    def test_episodeNumber(self):
+        # Don't appear if None (default)
+        assert self.fe.episode_number is None
+        assert self.fe.rss_entry().find("{%s}episode" % self.itunes_ns) is None
+
+        # Appear with the right number when set
+        self.fe.episode_number = 1
+        assert self.fe.episode_number == 1
+        itunes_episode = self.fe.rss_entry()\
+            .find("{%s}episode" % self.itunes_ns)
+        assert itunes_episode is not None
+        assert itunes_episode.text == "1"
+
+        # Must be non-zero integer
+        self.assertRaises(ValueError, setattr, self.fe, "episode_number", 0)
+        self.assertRaises(ValueError, setattr, self.fe, "episode_number", -1)
+        self.assertRaises(ValueError, setattr, self.fe, "episode_number", "not a number")
+        assert self.fe.episode_number == 1
+
+    def test_episodeNumberMandatoryWhenSerial(self):
+        # Vary the first episode. Ensure the remaining two don't interfere
+        for i, episode in enumerate(self.fg.episodes[1:], start=2):
+            episode.episode_number = i
+
+        # Test that the missing episode_number is reacted on
+        self.fg.is_serial = True
+        self.assertRaises((RuntimeError, ValueError), self.fg.rss_str)
+
+        # Does not raise when the episode is a trailer
+        self.fe.episode_type = EPISODE_TYPE_TRAILER
+        self.fg.rss_str()
+
+        # Does not raise when the episode is a bonus
+        self.fe.episode_type = EPISODE_TYPE_BONUS
+        self.fg.rss_str()
+
+        # Still raises for full episode
+        self.fe.episode_type = EPISODE_TYPE_FULL
+        self.assertRaises((RuntimeError, ValueError), self.fg.rss_str)
+
+        # Does not raise when the episode has a number
+        self.fe.episode_number = 1
+        self.fg.rss_str()
+
     def test_mandatoryAttributes(self):
         ep = Episode()
         self.assertRaises((RuntimeError, ValueError), ep.rss_entry)
@@ -517,7 +562,7 @@ class TestBaseEpisode(unittest.TestCase):
         def get_element():
             return self.fe.rss_entry()\
                 .find("{%s}season" % self.itunes_ns)
-        
+
         # Starts out as None
         assert self.fe.season is None
 
@@ -550,20 +595,20 @@ class TestBaseEpisode(unittest.TestCase):
         # Gives error when set to zero
         with self.assertRaises(ValueError):
             self.fe.season = 0
-        
+
         # Gives error when set to negative number
         with self.assertRaises(ValueError):
             self.fe.season = -1
 
-    
+
     def test_episodeType(self):
         def get_element():
             return self.fe.rss_entry()\
                 .find("{%s}episodeType" % self.itunes_ns)
-        
+
         # Starts out as "full"
         self.assertEqual(self.fe.episode_type, EPISODE_TYPE_FULL)
-        
+
         # Not used when set to "full"
         assert get_element() is None
 
@@ -584,7 +629,7 @@ class TestBaseEpisode(unittest.TestCase):
         class IsEpisodeTypeWhenStr:
             def __str__(self):
                 return EPISODE_TYPE_TRAILER
-        
+
         self.fe.episode_type = IsEpisodeTypeWhenStr()
         self.assertEqual(self.fe.episode_type, EPISODE_TYPE_TRAILER)
         assert get_element() is not None

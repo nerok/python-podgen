@@ -191,6 +191,37 @@ That is, given the example above, the id of ``my_episode`` would be
 
 Read more about :attr:`the id attribute <podgen.Episode.id>`.
 
+Organization of episodes
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+By default, podcast applications will organize episodes by their publication
+date, with the most recent episode at top. In addition to this, many publishers
+number their episodes by including a number in the episode titles.
+Some also divide their episodes into seasons.
+Such titles may look like "S02E04 Example title", to take an example.
+
+Generally, podcast applications can provide a better presentation when the information is
+*structured*, rather than mangled together in the episode titles. Apple
+therefore introduced `new ways of specifying season and episode numbers`_ through
+separate fields in mid 2017. Unfortunately, `not all podcast applications have
+adopted the fields`_, but hopefully that will improve as more publishers use
+the new fields.
+
+The :attr:`~podgen.Episode.season` and :attr:`~podgen.Episode.episode_number`
+attributes are used to set this information::
+
+   my_episode.title = "Example title"
+   my_episode.season = 2
+   my_episode.episode_number = 4
+
+The ``episode_number`` attribute is mandatory for full episodes if the podcast
+is marked as serial. Otherwise, they are just nice to have.
+
+.. _new ways of specifying season and episode numbers: https://podnews.net/article/episode-numbers-faq
+.. _not all podcast applications have adopted the fields: https://podnews.net/article/episode-number-support-in-podcast-apps
+
+
+
 Episode's publication date
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 

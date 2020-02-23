@@ -175,6 +175,8 @@ class Episode(object):
 
         self.__position = None
 
+        self.__episode_number = None
+
         self.__season = None
 
         self.__episode_type = EPISODE_TYPE_FULL
@@ -322,6 +324,11 @@ class Episode(object):
         if self.__position is not None and self.__position >= 0:
             order = etree.SubElement(entry, '{%s}order' % ITUNES_NS)
             order.text = str(self.__position)
+
+        if self.__episode_number is not None:
+            episode_number = etree.SubElement(entry, '{%s}episode' % ITUNES_NS)
+            # Convert via int, since we stored the original as-is
+            episode_number.text = str(int(self.__episode_number))
 
         if self.subtitle:
             subtitle = etree.SubElement(entry, '{%s}subtitle' % ITUNES_NS)
@@ -627,3 +634,35 @@ class Episode(object):
             self.__position = int(position)
         else:
             self.__position = None
+
+    @property
+    def episode_number(self):
+        """This episode's number (within the season).
+
+        This number is used to sort the episodes for
+        :attr:`serial podcasts <.Podcast.is_serial>`. It can also be displayed
+        to the user as the episode number. For
+        :attr:`full episodes <episode_type>`, the episode numbers
+        should be unique within each season.
+
+        This is mandatory for full episodes of serial podcasts.
+
+        :type: :obj:`None` or positive :obj:`int`
+        :RSS: itunes:episode
+        """
+        return self.__episode_number
+
+    @episode_number.setter
+    def episode_number(self, episode_number):
+        if episode_number is not None:
+            as_integer = int(episode_number)
+            if 0 < as_integer:
+                # Store original (not int), to avoid confusion when setting
+                self.__episode_number = episode_number
+            else:
+                raise ValueError(
+                    'episode_number must be a positive, non-zero integer; not '
+                    '"%s"' % episode_number
+                )
+        else:
+            self.__episode_number = None

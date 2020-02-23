@@ -1,8 +1,7 @@
 PodGen (forked from python-feedgen)
 ===================================
 
-[![Build Status](https://travis-ci.org/tobinus/python-podgen.svg?branch=master)](https://travis-ci.org/tobinus/python-podgen)
-[![Documentation Status](https://readthedocs.org/projects/podgen/badge/?version=latest)](http://podgen.readthedocs.io/en/latest/?badge=latest)
+[![Build Status](https://travis-ci.com/tobinus/python-podgen.svg?branch=master)](https://travis-ci.com/tobinus/python-podgen)[![Documentation Status](https://readthedocs.org/projects/podgen/badge/?version=latest)](http://podgen.readthedocs.io/en/latest/?badge=latest)
 
 
 This module can be used to generate podcast feeds in RSS format, and is

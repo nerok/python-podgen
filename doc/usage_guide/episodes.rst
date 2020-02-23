@@ -284,6 +284,59 @@ You can even have multiple authors::
 Read more about :attr:`an episode's authors <podgen.Episode.authors>`.
 
 
+Bonuses and Trailers
+^^^^^^^^^^^^^^^^^^^^
+
+Sometimes, you may have some bonus material that did not make it into the
+published episode, such as a 1-hour interview which was cut down to 10 minutes
+for the podcast, or funny outtakes. Or, you may want to generate some hype for an upcoming season
+of a podcast ahead of its first episode.
+
+Bonuses and trailers are added to the podcast the same way regular episodes are
+added, but with the :attr:`~podgen.Episode.episode_type` attribute set to a
+different value depending on if it is a bonus or a trailer.
+
+The following constants are used as values of ``episode_type``:
+
+* Bonus: ``EPISODE_TYPE_BONUS``
+* Trailer: ``EPISODE_TYPE_TRAILER``
+* Full/regular (default): ``EPISODE_TYPE_FULL``
+
+The constants can be imported from ``podgen``. Here is an example::
+
+    from podgen import Podcast, EPISODE_TYPE_BONUS
+
+    # Create the podcast
+    my_podcast = Podcast()
+    # Fill in the podcast details
+    # ...
+
+    # Create the ordinary episode
+    my_episode = my_podcast.add_episode()
+    my_episode.title = "The history of Acme Industries"
+    my_episode.season = 1
+    my_episode.episode_number = 9
+
+    # Create the bonus episode associated with the ordinary episode above
+    my_bonus = my_podcast.add_episode()
+    my_bonus.title = "Full interview with John Doe about Acme Industries"
+    my_bonus.episode_type = EPISODE_TYPE_BONUS
+    my_bonus.season = 1
+    my_bonus.episode_number = 9
+    # ...
+
+:attr:`~podgen.Episode.episode_type` combines with :attr:`~podgen.Episode.season`
+and :attr:`~podgen.Episode.episode_number` to indicate what this is a bonus or trailer for.
+
+* If you specify an :attr:`episode number <podgen.Episode.episode_number>`,
+  optionally with a :attr:`season number <podgen.Episode.season>` if you divide episodes by season,
+  it will be a bonus or trailer for that episode.
+  You can see this in the example above.
+* If you specify only a :attr:`~podgen.Episode.season`, then it will be a bonus or trailer for that season.
+* If you specify none of those,
+  it will be a bonus or trailer for the podcast itself.
+
+
 Less used attributes
 ^^^^^^^^^^^^^^^^^^^^
 

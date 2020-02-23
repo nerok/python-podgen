@@ -13,28 +13,41 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 from builtins import *
 
 import unittest
+from datetime import timedelta
+from ddt import ddt, data, unpack
 from podgen import util
 
+
+@ddt
 class TestUtil(unittest.TestCase):
 
-    def test_listToHumanReadableStr(self):
-        # Just check that none of the cases causes an error
-        empty = util.listToHumanreadableStr([])
-        one = util.listToHumanreadableStr([4])
-        two = util.listToHumanreadableStr([4, "hi"])
-        three = util.listToHumanreadableStr([4, "hi", "low"])
+    @data(
+        ([], "(empty)"),
+        ([4], "4"),
+        ([4, "hi"], "4 and hi"),
+        ([4, "hi", "low"], "4, hi and low")
+    )
+    @unpack
+    def test_listToHumanReadableStr(self, test_list, expected):
+        actual = util.listToHumanreadableStr(test_list)
+        self.assertEqual(actual, expected)
 
-        assert "4" in one
-        assert "and" not in one
-        assert "," not in one
+    @data(
+        (None, None),
+        (timedelta(seconds=4), "00:04"),
+        (timedelta(minutes=4), "04:00"),
+        (timedelta(hours=4), "04:00:00"),
+        (timedelta(days=2, hours=3, minutes=41, seconds=51), "51:41:51"),
+        (timedelta(days=2, hours=3, minutes=4, seconds=5), "51:04:05"),
+        (timedelta(seconds=4, milliseconds=42), "00:04.042")
+    )
+    @unpack
+    def test_ntpFormatWithMillis(self, td, expected):
+        actual = util.format_as_normal_play_time(td)
+        self.assertEqual(actual, expected)
 
-        assert "4" in two
-        assert "and" in two
-        assert "hi" in two
-        assert "," not in two
+    def test_ntpFormatWithoutMillis(self):
+        td = timedelta(seconds=4, milliseconds=42)
+        actual = util.format_as_normal_play_time(td, False)
+        self.assertEqual(actual, "00:04")
 
-        assert "4" in three
-        assert "," in three
-        assert "hi" in three
-        assert "and" in three
-        assert "low" in three

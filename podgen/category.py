@@ -298,5 +298,5 @@ class Category(object):
         # Make this attribute read-only by not implementing setter
 
     def __repr__(self):
-        return 'Category(category=%s, subcategory=%s)' % \
+        return 'Category(category=%r, subcategory=%r)' % \
                (self.category, self.subcategory)

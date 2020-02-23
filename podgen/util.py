@@ -86,6 +86,37 @@ def formatRFC2822(d):
     locale.setlocale(locale.LC_ALL, l)
     return d
 
+
+def format_as_normal_play_time(td, allow_millis=True):
+    """Format as Normal Play Time, which is [[HH:]mm:]ss[.mmm]
+
+    :param td: Duration or position to encode.
+    :type td: Union[datetime.timedelta, None]
+    :param allow_millis: If True, include millisecond portion when the
+                         milliseconds are different from zero.
+    :type allow_millis: bool
+    :return: None if td is None, else td formatted in a way understood by
+             Apple Podcasts and Normal Play Time.
+    :rtype: Union[str, None]
+    """
+    if td is None:
+        return None
+    else:
+        millis = td.microseconds // 1000
+        millis_fragment = ".%03d" % millis \
+            if allow_millis and millis > 0 \
+            else ""
+
+        hours = td.days * 24 + \
+                td.seconds // 3600
+        minutes = (td.seconds // 60) % 60
+        seconds = td.seconds % 60
+
+        if hours:
+            return "%02d:%02d:%02d%s" % (hours, minutes, seconds, millis_fragment)
+        else:
+            return "%02d:%02d%s" % (minutes, seconds, millis_fragment)
+
 # Define htmlencode
 ver = sys.version_info
 

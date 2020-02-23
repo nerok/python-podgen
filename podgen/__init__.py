@@ -18,6 +18,7 @@ from .constants import EPISODE_TYPE_BONUS, EPISODE_TYPE_FULL, EPISODE_TYPE_TRAIL
 from .podcast import Podcast
 from .episode import Episode
 from .media import Media
+from .chapter import Chapter
 from .person import Person
 from .warnings import NotSupportedByItunesWarning, PodgenWarning, \
     LegacyCategoryWarning, NotRecommendedWarning

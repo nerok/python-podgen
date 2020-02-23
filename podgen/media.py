@@ -23,6 +23,7 @@ import datetime
 from tinytag import TinyTag
 import requests
 
+from podgen.util import format_as_normal_play_time
 from podgen.warnings import NotSupportedByItunesWarning
 from podgen import version
 
@@ -348,18 +349,7 @@ class Media(object):
 
         :type: :obj:`str`
         """
-        if self.duration is None:
-            return None
-        else:
-            hours = self.duration.days * 24 + \
-                    self.duration.seconds // 3600
-            minutes = (self.duration.seconds // 60) % 60
-            seconds = self.duration.seconds % 60
-
-            if hours:
-                return "%02d:%02d:%02d" % (hours, minutes, seconds)
-            else:
-                return "%02d:%02d" % (minutes, seconds)
+        return format_as_normal_play_time(self.duration, False)
 
     @classmethod
     def create_from_server_response(cls, url, size=None, type=None,

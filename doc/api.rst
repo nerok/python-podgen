@@ -8,6 +8,7 @@ API Documentation
    podgen.Episode
    podgen.Person
    podgen.Media
+   podgen.Chapter
    podgen.Category
    podgen.warnings
    podgen.util
@@ -20,6 +21,7 @@ API Documentation
    api.episode
    api.person
    api.media
+   api.chapter
    api.category
    api.warnings
    api.util

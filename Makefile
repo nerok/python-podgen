@@ -51,5 +51,5 @@ publish: sdist wheel
 test:
 	@python -m unittest podgen.tests.test_podcast podgen.tests.test_episode \
 	  podgen.tests.test_person podgen.tests.test_media \
-	  podgen.tests.test_util podgen.tests.test_category
+	  podgen.tests.test_util podgen.tests.test_category podgen.tests.test_chapter
 	python -m podgen rss > /dev/null

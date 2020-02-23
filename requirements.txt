@@ -4,3 +4,4 @@
 # Packages needed for development:
 mock
 Sphinx
+ddt

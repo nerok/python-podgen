@@ -11,12 +11,12 @@ are out there.
 
 The current plan for PodGen updates is as follows:
 
-* **New minor version**: Support for the new Apple Podcast specifications and
-  categories, as much as is possible without breaking backwards compatibility.
+* **New minor version**: Support for the new Apple Podcast specifications,
+  as much as is possible without breaking backwards compatibility.
 * Deprecation warnings for properties and such which will be removed in the
   next major version.
-* **New major version**: Support for the new Apple Podcast specifications and
-  categories which could not be included earlier due to backwards compatibility,
+* **New major version**: Support for the new Apple Podcast specifications which
+  could not be included earlier due to backwards compatibility,
   or which have new names or behaviours to simplify the API. Removal of
   deprecated features.
 * **New minor versions**: Removal of support for Python releases that have

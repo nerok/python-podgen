@@ -26,7 +26,7 @@ Known bugs and limitations
 --------------------------
 
 * The updates to Apple's podcasting guidelines since 2016 have not been
-  implemented. This includes the new categories, the ability to mark episodes
+  implemented. This includes the ability to mark episodes
   with episode and season number, and the ability to mark the podcast as
   "serial". It is a goal to implement those changes in a future release.
 * We do not follow the RSS recommendation to encode &amp;, &lt; and &gt; using

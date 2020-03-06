@@ -8,13 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 
-- Support for the [new Apple Podcast categories][category-new-2019] that were [added August 9th 2019][category-published-2019].
 - Support for indicating that the episodes should be consumed in order,
   by setting `Podcast.is_serial` to `True`.
 - Support for `Episode.episode_type` for indicating whether an episode 
   contains a full episode, a trailer or bonus material.
 - Support for `Episode.season` for indicating what season the episode belongs 
   to.
+
+
+## [1.1.0] - 2020-03-06
+### Added
+
+- Support for the [new Apple Podcast categories][category-new-2019] that were [added August 9th 2019][category-published-2019].
 - Documentation of the Warning classes defined by PodGen.
 
 [category-new-2019]: https://podnews.net/article/apple-changed-podcast-categories-2019
@@ -57,6 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The Podcast and Episode classes for easily generating a podcast out of data,
   and related utilities and classes.
 
-[Unreleased]: https://github.com/tobinus/python-podgen/compare/v1.0.1...develop
+[Unreleased]: https://github.com/tobinus/python-podgen/compare/v1.1.0...develop
+[1.1.0]: https://github.com/tobinus/python-podgen/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/tobinus/python-podgen/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/tobinus/python-podgen/compare/290045ac...v1.0.0

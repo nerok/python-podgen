@@ -1,8 +1,11 @@
-# Modified work Copyright 2016, Thorben Dahl <thorben@sjostrom.no>
+# Modified work Copyright 2020, Thorben Dahl <thorben@sjostrom.no>
 # See license.* for more details
 
-sdist: doc
+sdist:
 	python setup.py sdist
+
+wheel:
+	python setup.py bdist_wheel --universal
 
 clean: doc-clean
 	@echo Removing binary files...
@@ -12,7 +15,7 @@ clean: doc-clean
 	@rm -rf dist/
 	@rm -f MANIFEST
 
-doc: doc-clean doc-html doc-man doc-latexpdf
+doc: doc-clean doc-html
 
 doc-clean:
 	@echo Removing docs...
@@ -26,6 +29,7 @@ doc-html:
 	@echo 'Copying html to into docs dir'
 	@cp -T -r doc/_build/html/ docs/html/
 
+# Not supported
 doc-man:
 	@echo 'Generating manpage'
 	@make -C doc man
@@ -33,6 +37,7 @@ doc-man:
 	@echo 'Copying manpage to into docs dir'
 	@cp doc/_build/man/*.1 docs/man/
 
+# Not supported
 doc-latexpdf:
 	@echo 'Generating pdf'
 	@make -C doc latexpdf
@@ -40,8 +45,8 @@ doc-latexpdf:
 	@echo 'Copying pdf to into docs dir'
 	@cp doc/_build/latex/*.pdf docs/pdf/
 
-publish: sdist
-	python setup.py register sdist upload
+publish: sdist wheel
+	twine upload dist/*
 
 test:
 	@python -m unittest podgen.tests.test_podcast podgen.tests.test_episode \

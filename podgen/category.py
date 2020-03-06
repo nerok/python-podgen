@@ -279,7 +279,6 @@ class Category(object):
 
         return canonical_category, canonical_subcategory
 
-
     @property
     def category(self):
         """The category represented by this object. Read-only.

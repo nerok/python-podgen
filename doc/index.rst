@@ -55,11 +55,11 @@ PodGen is compatible with Python 2.7 and 3.4+.
 
 .. warning::
 
-   As of October 7th 2019 (v1.0.1), PodGen does not support the additions and changes
-   made by Apple to their podcast standards since 2016. This includes
-   the new and renamed categories, the ability to mark episodes with episode and
+   As of March 6th 2020 (v1.1.0), PodGen does not support the additions and changes
+   made by Apple to their podcast standards since 2016, with the exception of the 2019 categories.
+   This includes the ability to mark episodes with episode and
    season number, and the ability to mark the podcast as "serial".
-   It is a goal to eventually implement those changes in a new release.
+   It is a goal to implement those changes in a new release.
    Please refer to the :doc:`background/roadmap`.
 
 

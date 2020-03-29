@@ -13,6 +13,9 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 from builtins import *
 
 from datetime import timedelta
+import warnings
+
+from podgen.warnings import NotRecommendedWarning
 
 
 class Chapter(object):
@@ -72,14 +75,57 @@ class Chapter(object):
                       chapter.
         :type: image: :obj:`str`
         """
-        # Validation
-        if not isinstance(start, timedelta):
-            raise ValueError("Invalid start. Expected %s to be a datetime.timedelta" % start)
+        Chapter._validate_start(start)
+        Chapter._validate_title(title)
+        Chapter._validate_link(link)
+        Chapter._validate_image(image)
 
         self.__start = start
         self.__title = title
         self.__link = link
         self.__image = image
+
+    @staticmethod
+    def _validate_start(start):
+        if not isinstance(start, timedelta):
+            raise ValueError("Invalid start. Expected %r to be a datetime.timedelta" % start)
+
+    @staticmethod
+    def _validate_title(title):
+        if not str(title).strip():
+            raise ValueError("Invalid title: Cannot be empty")
+
+    @staticmethod
+    def _validate_link(link):
+        if link is None:
+            # No need for validation
+            return
+
+        # Support objects that are converted to str by us, but don't convert
+        # them on assignment -- this way, the user will get whatever they put in
+        # when using the getters
+        link = str(link)
+
+        if not link.startswith(('http://', 'https://')):
+            raise ValueError("Invalid link: Must start with http:// or https://")
+
+    @staticmethod
+    def _validate_image(image):
+        if image is None:
+            # No need for validation
+            return
+
+        image = str(image)
+
+        if not image.startswith(("http://", "https://")):
+            raise ValueError("Invalid image: Must start with http:// or https://")
+        elif not image.lower().endswith((".jpg", "jpeg", ".png", ".tiff", ".tif")):
+            warnings.warn(
+                "Image URL should end with .png, .jpg, .jpeg, .tiff or "
+                ".tif to support Spotify, not .%s" % str(image).split(".")[-1],
+                NotRecommendedWarning,
+                stacklevel=3
+            )
 
     @property
     def start(self):

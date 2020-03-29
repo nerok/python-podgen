@@ -163,3 +163,13 @@ def listToHumanreadableStr(l):
         return l[0]
     else:
         return ", ".join(l[:-1]) + " and " + l[-1]
+
+
+class EncapsulatedStr(object):
+    """Testing utility, to ensure objects with __str__ are supported"""
+
+    def __init__(self, str_):
+        self.str_ = str_
+
+    def __str__(self):
+        return self.str_

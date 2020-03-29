@@ -109,6 +109,29 @@ class Episode(object):
 
         self.__media = None
 
+        self.chapters = []
+        """List of chapters for this episode.
+        
+        Chapters can be used to divide long episodes into labelled chapters,
+        letting listeners skip past portions they aren't interested in and
+        adding some textual metadata about what the episode contains.
+        
+        This attribute is set to a :obj:`list` by default, which you can simply
+        append instances of :class:`~podgen.Chapter` to. Only duck typing is
+        used, so PodGen is fine as long as the value of this attribute can be
+        iterated over multiple times, and all items have valid start, title,
+        link and image attributes.
+        
+        PodGen does not touch the audio file itself, making this incompatible with 
+        podcast applications that only support chapters as metadata embedded in
+        the audio file.
+        
+        :type: :obj:`list` of :class:`~podgen.Chapter`
+        :RSS: psc:chapters consisting of psc:chapter elements
+        """
+        # TODO: Test self.chapters
+        # TODO: Implement in RSS
+
         self.id = None
         """This episode's globally unique identifier.
 

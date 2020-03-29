@@ -14,10 +14,17 @@ from builtins import *
 
 import unittest
 from datetime import timedelta
+import warnings
+import sys
+
+from ddt import ddt, data
 
 from podgen import Chapter
+from podgen.warnings import NotRecommendedWarning
+from podgen.util import EncapsulatedStr
 
 
+@ddt
 class TestChapter(unittest.TestCase):
     def setUp(self):
         self.start = timedelta(seconds=15)
@@ -31,6 +38,12 @@ class TestChapter(unittest.TestCase):
             self.link,
             self.image
         )
+
+        # Ensure warning capturing works (only needed for Python 2.7 -- otherwise
+        # we could just have used assertWarns)
+        for v in sys.modules.values():
+            if getattr(v, '__warningregistry__', None):
+                v.__warningregistry__ = {}
 
     def test_constructorPositional(self):
         self.do_attribute_test()
@@ -55,16 +68,54 @@ class TestChapter(unittest.TestCase):
         self.assertIsNone(c.link)
         self.assertIsNone(c.image)
 
+    def test_encapsulatedStr(self):
+        start = self.start
+        title = EncapsulatedStr(self.title)
+        link = EncapsulatedStr(self.link)
+        image = EncapsulatedStr(self.image)
+
+        c = Chapter(start, title, link, image)
+
+        self.assertEqual(c.start, start)
+        self.assertEqual(c.title, title)
+        self.assertEqual(c.link, link)
+        self.assertEqual(c.image, image)
+
     def do_attribute_test(self):
         assert self.c.start == self.start
         assert self.c.title == self.title
         assert self.c.link == self.link
         assert self.c.image == self.image
 
-    def test_startIsTimedelta(self):
-        self.assertRaises(ValueError, Chapter, "start", self.title)
-        self.assertRaises(ValueError, Chapter, 45.0, self.title)
-        self.do_attribute_test()
+    @data("start", 45.0)
+    def test_startIsTimedelta(self, invalid_value):
+        self.assertRaises(ValueError, Chapter, invalid_value, self.title)
+
+    @data("", EncapsulatedStr(""), "      ")
+    def test_titleIsNotEmpty(self, invalid_value):
+        self.assertRaises(ValueError, Chapter, self.start, invalid_value)
+
+    @data("", EncapsulatedStr(""), "ftp://example.org/example.html", "example.org/example.html")
+    def test_linkIsValidated(self, invalid_value):
+        self.assertRaises(ValueError, Chapter, self.start, self.title, link=invalid_value)
+
+    @data("", EncapsulatedStr(""), "ftp://example.org/example.png", "example.org/example.png")
+    def test_imageMustBeHttp(self, invalid_value):
+        self.assertRaises(ValueError, Chapter, self.start, self.title, image=invalid_value)
+
+    @data("http://example.org/image.gif", EncapsulatedStr("https://example.org/image"))
+    def test_imageShouldHaveAcceptedFileEnding(self, dumb_value):
+        # Replacement of assertWarns in Python 2.7
+        with warnings.catch_warnings(record=True) as w:
+            # Replacement of assertWarns in Python 2.7
+            warnings.simplefilter("always", NotRecommendedWarning)
+
+            c = Chapter(self.start, self.title, image=dumb_value)
+            self.assertEqual(c.image, dumb_value)
+
+            # Replacement of assertWarns in Python 2.7
+            self.assertEqual(len(w), 1)
+            self.assertIsInstance(w[0].message, NotRecommendedWarning)
 
     def test_isImmutable(self):
         self.assertRaises(AttributeError, setattr, self.c, "start", self.start + timedelta(minutes=1))
@@ -78,3 +129,5 @@ class TestChapter(unittest.TestCase):
 
         self.assertRaises(AttributeError, setattr, self.c, "image", self.image + "/real_image.png")
         self.do_attribute_test()
+
+

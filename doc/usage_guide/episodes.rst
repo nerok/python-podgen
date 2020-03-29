@@ -175,6 +175,70 @@ Read more about:
 
 .. _MIME type: https://en.wikipedia.org/wiki/Media_type
 
+
+Dividing the episode into chapters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Some podcasts have long episodes with multiple topics and columns. As the
+episode length increases, you risk boring listeners who are only
+interested in *some* of the discussions, but not all of them.
+
+For situations like this, you may define chapters that the listener can use as
+bookmarks. If they find one part uninteresting, they may easily skip to the
+beginning of the next chapter.
+
+PodGen provides the :class:`~podgen.Chapter` class, which can be used to define
+one chapter at a time. The chapters should then be put into the :attr:`Episode.chapters <podgen.Episode.chapters>`
+list::
+
+    from podgen import Chapter
+    from datetime import timedelta
+
+    my_episode.chapters.append(Chapter(timedelta(), "Intro"))
+
+    c2 = Chapter(timedelta(minutes=2, seconds=51), "Since last time")
+    my_episode.chapters.append(c2)
+
+    c3 = Chapter(
+        start=timedelta(minutes=7, seconds=25),
+        title="Retro Review: Animal Crossing for NGC",
+        link="https://example.org/reviews/ac_ngc.html",
+        image="https://example.org/images/ac_ngc.png"
+    )
+    my_episode.chapters.append(c3)
+
+Instances of :class:`~podgen.Chapter` are immutable, meaning that once they have
+been created, they cannot be changed. All values must instead be provided to the
+constructor, as seen above. This is similar to how :obj:`~datetime.timedelta`
+works.
+
+The available attributes of Chapter are:
+
+.. autosummary::
+
+   ~podgen.Chapter.start
+   ~podgen.Chapter.title
+   ~podgen.Chapter.link
+   ~podgen.Chapter.image
+
+Out of these, only :attr:`~podgen.Chapter.start` and
+:attr:`~podgen.Chapter.title` are mandatory.
+
+It is optional to define chapters;
+it is perfectly fine to have episodes with no chapters.
+
+.. note::
+
+   The chapters you provide in PodGen are included as a part of the generated
+   RSS, following the `Podlove Simple Chapters standard <https://podlove.org/simple-chapters/>`_.
+   There exists an alternate way of defining chapters, which is to embed them as metadata in the audio file.
+   The first way of defining chapters is technically beneficial
+   since it lets podcast applications and podcast catalogs show available
+   chapters without downloading and reading the audio file.
+   However, it has only recently begun to be adopted by podcast applications.
+   Spotify supports it, while e.g. Apple Podcasts doesn't.
+
+
 Identifying the episode
 ^^^^^^^^^^^^^^^^^^^^^^^
 

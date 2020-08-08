@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 import warnings
 
 def deprecated(deprecated_since, removed_in, description):
@@ -13,12 +15,11 @@ def deprecated(deprecated_since, removed_in, description):
 
     def deprecation_decorator(func):
         def func_wrapper(*args, **kwargs):
-            warnings.warn(
-                "{} is deprecated as of {} and will be removed in {}. {}"
-                    .format(func.__name__, deprecated_since, removed_in, description),
-                category=DeprecationWarning,
-                stacklevel=2
-            )
+            deprecation_warning(
+                func.__name__,
+                deprecated_since,
+                removed_in,
+                description)
             return func(*args, **kwargs)
 
         # Hide the decorator by taking the decorated functions name and docs.
@@ -26,3 +27,18 @@ def deprecated(deprecated_since, removed_in, description):
         func_wrapper.__doc__ = func.__doc__
         return func_wrapper
     return deprecation_decorator
+
+def deprecation_warning(
+    deprecated_name,
+    deprecated_since,
+    removed_in,
+    description):
+
+    warnings.warn\
+        (
+            "{} is deprecated as of {} and will be removed in {}. {}" \
+                .format(deprecated_name, deprecated_since, removed_in, \
+                    description),
+            category=DeprecationWarning,
+            stacklevel=2
+        )
